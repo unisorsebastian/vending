@@ -1,8 +1,12 @@
 package ro.app.service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -24,9 +28,8 @@ public class ChangeCoinServiceImpl implements ChangeCoinService {
 		handleNegativeCoinInput(pence);
 		handleAmountTooBig(pence);
 
-		/*
-		 * 28 = 20+5+3*1
-		 */
+		List<Coin> coins = null;
+		buildChangeCoinStashForInput(pence, coins);
 
 		return result;
 	}
@@ -45,20 +48,53 @@ public class ChangeCoinServiceImpl implements ChangeCoinService {
 		}
 	}
 
-	public Coin getHighestCoinForInput(int input) {
-		Coin result = Coin.OnePenny;
-		int coinValue = 0;
-		Coin[] allCoins = Coin.values();
-		Arrays.sort(allCoins, Collections.reverseOrder(coinComparator));
-		for (Coin c : allCoins) {
-			coinValue = c.getDenomination();
-			result = c;
-			if(input/coinValue>0){
-				break;
+	public Map<Coin, Integer> groupCoins(List<Coin> coins) {
+		Map<Coin, Integer> result = new HashMap<>();
+		Collections.sort(coins, Collections.reverseOrder(coinComparator));
+		for (Coin coin : coins) {
+			Integer count = result.get(coin);
+			if (count == null) {
+				result.put(coin, 1);
+			} else {
+				result.put(coin, result.get(coin) + 1);
 			}
 		}
 
 		return result;
+	}
+
+	public void buildChangeCoinStashForInput(int input, List<Coin> coins) {
+		if (input == 0) {
+			return;
+		}
+
+		if (coins == null) {
+			coins = new ArrayList<Coin>();
+		}
+
+		int coinValue = 0;
+		Coin[] allCoins = Coin.values();
+		Arrays.sort(allCoins, Collections.reverseOrder(coinComparator));
+
+		for (Coin coin : allCoins) {
+			coinValue = coin.getDenomination();
+			int catul = input / coinValue;
+			int restul = input % coinValue;
+			if (catul == 0 && restul > 0) {
+				continue;
+
+			} else if (catul > 0 && restul >= 0) {
+				while (catul > 0) {
+					coins.add(coin);
+					catul--;
+				}
+				if (restul == 0) {
+					break;
+				}
+				buildChangeCoinStashForInput(restul, coins);
+				break;
+			}
+		}
 	}
 
 }
