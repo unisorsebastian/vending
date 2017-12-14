@@ -48,7 +48,6 @@ public class CoinValueTest {
 		assertFalse(Coin.FivePence.toString().equals("Five pence means 50p"));
 	}
 	
-	
 	@Test
 	public void sortCoinsTest() throws Exception{
 		//natural order - 3rd coin is one pound 

@@ -1,10 +1,16 @@
 package ro.app.service;
 
+import static org.junit.Assert.assertTrue;
+
+import java.util.Collection;
+
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import ro.app.model.Coin;
 import ro.app.model.NegativeAmountException;
 import ro.app.model.PoorManException;
 import ro.app.model.RichieRichException;
@@ -31,6 +37,12 @@ public class ChangeCoinServiceTest {
 	@Test(expected = RichieRichException.class)
 	public void amountTooBigTest() throws Exception{
 		changeCoinService.getChangeFor(Integer.MAX_VALUE);
+	}
+	
+	@Test
+	public void highestCoinForInputTest() throws Exception{
+		Coin onePenny = changeCoinService.getHighestCoinForInput(51);
+		assertTrue(onePenny.equals(Coin.OnePenny));
 	}
 
 }
