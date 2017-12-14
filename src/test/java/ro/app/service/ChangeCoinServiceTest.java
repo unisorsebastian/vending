@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import ro.app.model.Coin;
 import ro.app.model.NegativeAmountException;
 import ro.app.model.PoorManException;
 import ro.app.model.RichieRichException;
@@ -13,7 +12,7 @@ import ro.app.model.RichieRichException;
 @RunWith(SpringRunner.class)
 public class ChangeCoinServiceTest {
 
-	private ChangeCoinService<Coin> changeCoinService;
+	private ChangeCoinService changeCoinService;
 	
 	@Before
 	public void setUp() throws Exception {

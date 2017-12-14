@@ -1,5 +1,6 @@
 package ro.app.model;
 
-public class RichieRichException extends CoinAmountException{
+@SuppressWarnings("serial")
+public class RichieRichException extends CoinAmountException {
 
 }

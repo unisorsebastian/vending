@@ -1,5 +1,6 @@
 package ro.app.model;
 
-public class NegativeAmountException extends CoinAmountException{
+@SuppressWarnings("serial")
+public class NegativeAmountException extends CoinAmountException {
 
 }

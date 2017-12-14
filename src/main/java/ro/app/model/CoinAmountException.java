@@ -1,5 +1,6 @@
 package ro.app.model;
 
-public class CoinAmountException extends RuntimeException{
+@SuppressWarnings("serial")
+public class CoinAmountException extends RuntimeException {
 
 }

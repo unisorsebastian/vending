@@ -11,7 +11,7 @@ import ro.app.model.PoorManException;
 import ro.app.model.RichieRichException;
 
 @Service
-public class ChangeCoinServiceImpl implements ChangeCoinService<Coin> {
+public class ChangeCoinServiceImpl implements ChangeCoinService {
 
 	@Override
 	public Collection<Coin> getChangeFor(int pence) {
