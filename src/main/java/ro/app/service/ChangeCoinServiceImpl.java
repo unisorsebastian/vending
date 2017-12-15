@@ -28,9 +28,11 @@ public class ChangeCoinServiceImpl implements ChangeCoinService {
 		handleNegativeCoinInput(pence);
 		handleAmountTooBig(pence);
 
-		List<Coin> coins = null;
+		List<Coin> coins = new ArrayList<>();
 		buildChangeCoinStashForInput(pence, coins);
 
+		result = coins;
+		
 		return result;
 	}
 
