@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -12,7 +11,6 @@ import java.util.TreeMap;
 import org.springframework.stereotype.Service;
 
 import ro.app.model.Coin;
-import ro.app.model.CoinComparator;
 import ro.app.model.NegativeAmountException;
 import ro.app.model.PoorManException;
 import ro.app.model.RichieRichException;
@@ -20,7 +18,7 @@ import ro.app.model.RichieRichException;
 @Service
 public class ChangeCoinServiceImpl implements ChangeCoinService {
 
-	private CoinComparator coinComparator = new CoinComparator();
+	// private CoinComparator coinComparator = new CoinComparator();
 
 	@Override
 	public Collection<Coin> getChangeFor(int pence) {
@@ -67,6 +65,40 @@ public class ChangeCoinServiceImpl implements ChangeCoinService {
 		return result;
 	}
 
+	public void buildChangeCoinStashForInputUsingLambda(int input, List<Coin> coins) {
+//		if (input == 0) {
+//			return;
+//		}
+//
+//		if (coins == null) {
+//			coins = new ArrayList<Coin>();
+//		}
+//
+//		
+//		List<Coin> allCoinsAsList = new ArrayList<>(Arrays.asList(Coin.values()));
+//		Collections.sort(allCoinsAsList, (coin1, coin2) -> coin2.getDenomination() - coin1.getDenomination());
+//		
+//		allCoinsAsList.stream().forEach(coin -> {
+//			int coinValue = coin.getDenomination();
+//			int catul = input / coinValue;
+//			int restul = input % coinValue;
+//			if (catul == 0 && restul > 0) {
+//				return;
+//			} else if (catul > 0 && restul >= 0) {
+//				while (catul > 0) {
+//					coins.add(coin);
+//					catul--;
+//				}
+//				if (restul == 0) {
+//					return;
+//				}
+//				buildChangeCoinStashForInputUsingLambda(restul, allCoinsAsList);
+//				return;
+//			}
+//
+//		});
+	}
+
 	public void buildChangeCoinStashForInput(int input, List<Coin> coins) {
 		if (input == 0) {
 			return;
@@ -78,7 +110,7 @@ public class ChangeCoinServiceImpl implements ChangeCoinService {
 
 		int coinValue = 0;
 		Coin[] allCoins = Coin.values();
-		Arrays.sort(allCoins, Collections.reverseOrder(coinComparator));
+		Arrays.sort(allCoins, (coin1, coin2) -> coin2.getDenomination() - coin1.getDenomination());
 
 		for (Coin coin : allCoins) {
 			coinValue = coin.getDenomination();

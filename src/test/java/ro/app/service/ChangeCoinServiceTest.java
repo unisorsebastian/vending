@@ -54,11 +54,23 @@ public class ChangeCoinServiceTest {
 	}
 	
 	@Test
-//	@Ignore
 	public void groupCoinsForMaxIntTest() throws Exception{
 		List<Coin> change = new ArrayList<>();
 		//takes few seconds to group all the coins
 		changeCoinService.buildChangeCoinStashForInput(Integer.MAX_VALUE-1, change);
+		Map<Coin, Integer> groupCoins = changeCoinService.groupCoins(change);
+		//{One pound means 100p=21474836, Five pence means 5p=1, Twenty pence means 20p=2, One penny means 1p=1}
+		System.out.println(groupCoins);
+		assertTrue(groupCoins.get(Coin.OnePound)==21474836);
+		assertTrue(groupCoins.get(Coin.TwentyPence)==2);
+		assertTrue(groupCoins.get(Coin.FivePence)==1);
+		assertTrue(groupCoins.get(Coin.OnePenny)==1);
+	}
+	@Test
+	public void groupCoinsForMaxIntUsingLambdaTest() throws Exception{
+		List<Coin> change = new ArrayList<>();
+		//takes few seconds to group all the coins
+		changeCoinService.buildChangeCoinStashForInputUsingLambda(Integer.MAX_VALUE-1, change);
 		Map<Coin, Integer> groupCoins = changeCoinService.groupCoins(change);
 		//{One pound means 100p=21474836, Five pence means 5p=1, Twenty pence means 20p=2, One penny means 1p=1}
 		System.out.println(groupCoins);
