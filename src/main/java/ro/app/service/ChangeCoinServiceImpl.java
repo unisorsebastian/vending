@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,7 @@ public class ChangeCoinServiceImpl implements ChangeCoinService {
 
 	@Override
 	public Collection<Coin> getChangeFor(int pence) {
-		Collection<Coin> result = Collections.<Coin> emptyList();
+		Collection<Coin> result = Collections.<Coin>emptyList();
 
 		handleNegativeCoinInput(pence);
 		handleAmountTooBig(pence);
@@ -32,7 +33,7 @@ public class ChangeCoinServiceImpl implements ChangeCoinService {
 		buildChangeCoinStashForInput(pence, coins);
 
 		result = coins;
-		
+
 		return result;
 	}
 
@@ -51,8 +52,9 @@ public class ChangeCoinServiceImpl implements ChangeCoinService {
 	}
 
 	public Map<Coin, Integer> groupCoins(List<Coin> coins) {
-		Map<Coin, Integer> result = new HashMap<>();
-		Collections.sort(coins, Collections.reverseOrder(coinComparator));
+		Map<Coin, Integer> result = new TreeMap<>((coin1, coin2) -> coin2.getDenomination() - coin1.getDenomination());
+
+		Collections.sort(coins, (coin1, coin2) -> coin2.getDenomination() - coin1.getDenomination());
 		for (Coin coin : coins) {
 			Integer count = result.get(coin);
 			if (count == null) {

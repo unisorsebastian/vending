@@ -54,7 +54,7 @@ public class ChangeCoinServiceTest {
 	}
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void groupCoinsForMaxIntTest() throws Exception{
 		List<Coin> change = new ArrayList<>();
 		//takes few seconds to group all the coins

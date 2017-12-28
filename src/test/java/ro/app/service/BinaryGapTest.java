@@ -33,4 +33,9 @@ public class BinaryGapTest {
 	public void firstOddElementTest() throws Exception{
 		assertTrue(binaryGapService.oddElement(elements)==7);
 	}
+	
+	@Test
+	public void lambda_1Test() throws Exception{
+		
+	}
 }

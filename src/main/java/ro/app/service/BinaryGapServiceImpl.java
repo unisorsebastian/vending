@@ -68,21 +68,19 @@ public class BinaryGapServiceImpl implements BinaryGapService {
 					// pair found
 					pairFound = true;
 					a[j] = -1;
-					a[index]=-1;
+					a[index] = -1;
 					break;
-					
 				}
 			}
 			if (pairFound) {
-				index=-1;
+				index = -1;
 				pairFound = false;
 				continue;
 			}
-			if(!pairFound) {
+			if (!pairFound) {
 				return result;
 			}
 		}
-
 		return result;
 	}
 
