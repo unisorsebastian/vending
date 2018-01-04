@@ -22,7 +22,10 @@ public class Application {
 			System.out.println("Let's inspect the beans provided by Spring Boot:");
 
 			String[] beanNames = ctx.getBeanDefinitionNames();
+			
 			Arrays.sort(beanNames);
+			Arrays.stream(beanNames).forEach(System.out::println);
+			Arrays.stream(beanNames).forEach(x->System.out.println(x));
 			for (String beanName : beanNames) {
 				System.out.println(beanName);
 			}

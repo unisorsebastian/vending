@@ -1,6 +1,8 @@
 package ro.app;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -25,5 +27,13 @@ public class MainController {
         return "change stash: "+changeFor;
     }
 
+    
+    @RequestMapping(value = "/giveChangeGroupByCoin/{amount}", method = RequestMethod.GET, produces = {
+            MediaType.APPLICATION_JSON_VALUE })
+    public String giveChangeGroupByCoin(@PathVariable(value = "amount") String amount) {
+    	List<Coin> changeFor = (List<Coin>)changeCoinService.getChangeFor(Integer.valueOf(amount));
+    	Map<Coin, Integer> groupCoins = changeCoinService.groupCoins(changeFor);
+        return "change stash:\n"+groupCoins;
+    }
 
 }
